@@ -1,0 +1,42 @@
+<html>
+
+<body>
+  <p id="listaA"></p>
+  <p id="listaB"></p>
+  <input type="number" id="LA"> <button onclick="addA()">Adicionar em SalaN</button>
+
+  <input type="text" id="LB"> <button onclick="addB()">Adicionar em SalaS</button>
+
+  <p id="Aordenado"></p> <br>
+  <p id="Bordenado"></p>
+
+  <button onclick="ordenar()">Click para ordenar</button>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    let salaN = [];
+    let salaS = [];
+    function addA() {
+      salaN.push(parseInt(document.getElementById("LA").value) )
+      console.log(salaN)
+      document.getElementById("listaA").innerHTML = "SalaN:" + salaN;
+    }
+
+    function addB() {
+      salaS.push(document.getElementById("LB").value)
+      document.getElementById("listaB").innerHTML = "SalaS:" + salaS;
+    }
+
+    function ordenar() {
+      axios({ method: "post", url: "http://localhost:3000/ordenaLista", data: { listas: { salaN, salaS } } }).then(function (response) {
+        document.getElementById("Aordenado").innerHTML = "SalaN Ordenada:" + response.data.listas.salaN;
+        document.getElementById("Bordenado").innerHTML = "SalaS Ordenada:" + response.data.listas.salaS;
+
+      });
+    }
+
+
+  </script>
+</body>
+
+</html>

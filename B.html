@@ -1,0 +1,39 @@
+<html>
+  <body>
+    <div>
+      <h3>inicio do intervalo A</h3>
+      <input type="number" id = "a1" >
+
+      <h3>Fim do intervalo A</h3> 
+      <input type="number" id = "a2" >
+
+      <h3>inicio do intervalo B</h3>
+      <input type="number" id = "b1" > 
+
+      <h3>Fim do intervalo B </h3>
+      <input type="number" id = "b2" > 
+    
+      <button  onclick = "enviar()"> Enviar</button> <br>
+      <p id = "result"></p>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      
+      function enviar() {
+        let intervaloA = [];
+        let intervaloB = [];
+        intervaloA.push(document.getElementById("a1").value)
+        intervaloA.push(document.getElementById("a2").value)
+        intervaloB.push(document.getElementById("b1").value)
+        intervaloB.push(document.getElementById("b2").value)
+         
+        axios({method:"get", url:'http://localhost:3000/interlace', params: {intervaloA,intervaloB}}).then(function(response){
+          let result = document.getElementById("result");
+          result.innerHTML = response.data;
+          console.log(response.data)
+        })
+      }
+    </script>
+  </body>
+</html>
